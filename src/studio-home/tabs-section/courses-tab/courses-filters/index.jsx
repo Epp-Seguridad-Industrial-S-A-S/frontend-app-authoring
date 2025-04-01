@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SearchField } from '@openedx/paragon';
 import { debounce } from 'lodash';
+import { useIntl } from '@edx/frontend-platform/i18n';
+
+import messages from '../../messages';
 
 import { getStudioHomeCoursesParams } from '../../../data/selectors';
 import { updateStudioHomeCoursesCustomParams } from '../../../data/slice';
@@ -23,6 +26,8 @@ const CoursesFilters = ({
   onSubmitSearchField,
   isLoading,
 }) => {
+  const intl = useIntl();
+
   const studioHomeCoursesParams = useSelector(getStudioHomeCoursesParams);
   const {
     order,
@@ -107,7 +112,7 @@ const CoursesFilters = ({
           value={cleanFilters ? '' : inputSearchValue}
           className="mr-4"
           data-testid="input-filter-courses-search"
-          placeholder="Search"
+           placeholder={intl.formatMessage(messages.CustomCourseSearchPlaceholder)}
         />
         {isLoading && (
           <span className="search-field-loading" data-testid="loading-search-spinner">

@@ -96,7 +96,7 @@ const CardItem: React.FC<Props> = ({
               <Dropdown.Menu>
                 {isShowRerunLink && (
                   <Dropdown.Item href={trimSlashes(rerunLink ?? '')}>
-                    {messages.btnReRunText.defaultMessage}
+                    {intl.formatMessage(messages.btnReRunText)}
                   </Dropdown.Item>
                 )}
                 <Dropdown.Item href={lmsLink}>

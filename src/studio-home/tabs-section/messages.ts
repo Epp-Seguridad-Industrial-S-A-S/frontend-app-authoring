@@ -80,6 +80,10 @@ const messages = defineMessages({
     id: 'course-authoring.studio-home.libraries.tab.library.search-placeholder',
     defaultMessage: 'Search',
   },
+  CustomCourseSearchPlaceholder: {
+    id: 'course-authoring.studio-home.CustomCourseSearchPlaceholder',
+    defaultMessage: 'Search',
+  },
   librariesV2TabLibraryNotFoundAlertTitle: {
     id: 'course-authoring.studio-home.libraries.tab.library.not.found.alert.title',
     defaultMessage: 'We could not find any result',
