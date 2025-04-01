@@ -6,6 +6,7 @@ import numericalInput from '../images/numericalInput.png';
 import textInput from '../images/textInput.png';
 import advancedOlxTemplates from './advancedOlxTemplates';
 import basicOlxTemplates from './basicOlxTemplates';
+import { messages } from './messages';
 
 export const ProblemTypeKeys = StrictDict({
   SINGLESELECT: 'multiplechoiceresponse',
@@ -17,9 +18,10 @@ export const ProblemTypeKeys = StrictDict({
 } as const);
 export type ProblemType = typeof ProblemTypeKeys[keyof typeof ProblemTypeKeys];
 
+// Problem Types with Internationalized Titles
 export const ProblemTypes = StrictDict({
   [ProblemTypeKeys.SINGLESELECT]: {
-    title: 'Single select',
+    title: messages.customSingleSelectTitle.defaultMessage,
     preview: singleSelect,
     previewDescription: 'Learners must select the correct answer from a list of possible options.',
     description: 'Enter your single select answers below and select which choices are correct. Learners must choose one correct answer.',
@@ -27,10 +29,9 @@ export const ProblemTypes = StrictDict({
     prev: ProblemTypeKeys.TEXTINPUT,
     next: ProblemTypeKeys.MULTISELECT,
     template: basicOlxTemplates.singleSelect,
-
   },
   [ProblemTypeKeys.MULTISELECT]: {
-    title: 'Multi-select',
+    title: messages.customMultiSelectTitle.defaultMessage,
     preview: multiSelect,
     previewDescription: 'Learners must select all correct answers from a list of possible options.',
     description: 'Enter your multi select answers below and select which choices are correct. Learners must choose all correct answers.',
@@ -40,9 +41,9 @@ export const ProblemTypes = StrictDict({
     template: basicOlxTemplates.multiSelect,
   },
   [ProblemTypeKeys.DROPDOWN]: {
-    title: 'Dropdown',
+    title: messages.customDropdownTitle.defaultMessage,
     preview: dropdown,
-    previewDescription: 'Learners must select the correct answer from a list of possible options',
+    previewDescription: 'Learners must select the correct answer from a list of possible options.',
     description: 'Enter your dropdown answers below and select which choice is correct. Learners must select one correct answer.',
     helpLink: 'https://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/exercises_tools/dropdown.html',
     next: ProblemTypeKeys.NUMERIC,
@@ -50,7 +51,7 @@ export const ProblemTypes = StrictDict({
     template: basicOlxTemplates.dropdown,
   },
   [ProblemTypeKeys.NUMERIC]: {
-    title: 'Numerical input',
+    title: messages.customNumericTitle.defaultMessage,
     preview: numericalInput,
     previewDescription: 'Specify one or more correct numeric answers, submitted in a response field.',
     description: 'Enter correct numerical input answers below. Learners must enter one correct answer.',
@@ -60,7 +61,7 @@ export const ProblemTypes = StrictDict({
     template: basicOlxTemplates.numeric,
   },
   [ProblemTypeKeys.TEXTINPUT]: {
-    title: 'Text input',
+    title: messages.customTextInputTitle.defaultMessage,
     preview: textInput,
     previewDescription: 'Specify one or more correct text answers, including numbers and special characters, submitted in a response field.',
     description: 'Enter your text input answers below and select which choices are correct. Learners must enter one correct answer.',
@@ -70,13 +71,14 @@ export const ProblemTypes = StrictDict({
     template: basicOlxTemplates.textInput,
   },
   [ProblemTypeKeys.ADVANCED]: {
-    title: 'Advanced Problem',
-    preview: ('<div />'),
+    title: messages.customAdvancedBlankTitle.defaultMessage, // For Advanced Problem
+    preview: '<div />', // Placeholder for advanced problem preview
     description: 'An Advanced Problem Type',
     helpLink: 'something.com',
   },
 });
 
+// Advanced Problem Keys
 export const AdvanceProblemKeys = StrictDict({
   BLANK: 'blankadvanced',
   CIRCUITSCHEMATIC: 'circuitschematic',
@@ -88,44 +90,46 @@ export const AdvanceProblemKeys = StrictDict({
 } as const);
 export type AdvancedProblemType = typeof AdvanceProblemKeys[keyof typeof AdvanceProblemKeys];
 
+// Check if Problem Type is an Advanced Problem
 export function isAdvancedProblemType(pt: ProblemType | AdvancedProblemType): pt is AdvancedProblemType {
   return Object.values(AdvanceProblemKeys).includes(pt as any);
 }
 
+// Advanced Problems with Internationalized Titles and Statuses
 export const AdvanceProblems = StrictDict({
   [AdvanceProblemKeys.BLANK]: {
-    title: 'Blank problem',
+    title: messages.customAdvancedBlankTitle.defaultMessage,
     status: '',
     template: '<problem></problem>',
   },
   [AdvanceProblemKeys.CIRCUITSCHEMATIC]: {
-    title: 'Circuit schematic builder',
-    status: 'Not supported',
+    title: messages.customAdvancedCircuitSchematicTitle.defaultMessage,
+    status: messages.customAdvancedCircuitSchematicStatus.defaultMessage,
     template: advancedOlxTemplates.circuitSchematic,
   },
   [AdvanceProblemKeys.JSINPUT]: {
-    title: 'Custom JavaScript display and grading',
+    title: messages.customAdvancedJsInputTitle.defaultMessage,
     status: '',
     template: advancedOlxTemplates.jsInputResponse,
   },
   [AdvanceProblemKeys.CUSTOMGRADER]: {
-    title: 'Custom Python-evaluated input',
-    status: 'Provisional',
+    title: messages.customAdvancedCustomGraderTitle.defaultMessage,
+    status: messages.customAdvancedCustomGraderStatus.defaultMessage,
     template: advancedOlxTemplates.customGrader,
   },
   [AdvanceProblemKeys.IMAGE]: {
-    title: 'Image mapped input',
-    status: 'Not supported',
+    title: messages.customAdvancedImageTitle.defaultMessage,
+    status: messages.customAdvancedImageStatus.defaultMessage,
     template: advancedOlxTemplates.imageResponse,
   },
   [AdvanceProblemKeys.FORMULA]: {
-    title: 'Math expression input',
+    title: messages.customAdvancedFormulaTitle.defaultMessage,
     status: '',
     template: advancedOlxTemplates.formulaResponse,
   },
   [AdvanceProblemKeys.PROBLEMWITHHINT]: {
-    title: 'Problem with adaptive hint',
-    status: 'Not supported',
+    title: messages.customAdvancedHintTitle.defaultMessage,
+    status: messages.customAdvancedImageStatus.defaultMessage,
     template: advancedOlxTemplates.problemWithHint,
   },
 } as const);
