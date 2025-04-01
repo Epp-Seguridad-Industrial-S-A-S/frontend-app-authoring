@@ -120,6 +120,32 @@ const messages = defineMessages({
       in your course and signed in to access the file.`,
     description: 'Tooltip message for the lock icon in the table view of files',
   },
+      // Custom messages for file details
+  fileCustom1Label: {
+    id: 'course-authoring.files-and-videos.file-custom1.label',
+    defaultMessage: 'File name',
+    description: 'Label for the file name',
+  },
+  fileCustom2Label: {
+    id: 'course-authoring.files-and-videos.file-custom2.label',
+    defaultMessage: 'File size',
+    description: 'Label for the file size',
+  },
+  fileCustom3Label: {
+    id: 'course-authoring.files-and-videos.file-custom3.label',
+    defaultMessage: 'Type',
+    description: 'Label for the file type',
+  },
+  fileCustom4Label: {
+    id: 'course-authoring.files-and-videos.file-custom4.label',
+    defaultMessage: 'Active',
+    description: 'Label for whether the file is active',
+  },
+  fileCustom5Label: {
+    id: 'course-authoring.files-and-videos.file-custom5.label',
+    defaultMessage: 'Access',
+    description: 'Label for the file access level',
+  },
 });
 
 export default messages;
