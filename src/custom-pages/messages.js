@@ -105,6 +105,14 @@ const messages = defineMessages({
     id: 'course-authoring.custom-pages.deleteConfirmation.cancelButton.label',
     defaultMessage: 'Cancel',
   },
+  CustomButtonLabel1: {
+    id: 'course-authoring.custom-pages..body.CustomButtonLabel1',
+    defaultMessage: 'Content',
+  },
+  CustomButtonLabel2: {
+    id: 'course-authoring.custom-pages..body.CustomButtonLabel2',
+    defaultMessage: 'Pages and Resources',
+  },
 });
 
 export default messages;

@@ -3,6 +3,9 @@ export const TIME_FORMAT = 'HH:mm';
 export const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm:ss\\Z';
 export const COMMA_SEPARATED_DATE_FORMAT = 'MMMM D, YYYY';
 export const DEFAULT_EMPTY_WYSIWYG_VALUE = '<p>&nbsp;</p>';
+import { FormattedMessage } from '@edx/frontend-platform/i18n';
+import messages from './messages';
+
 export const STATEFUL_BUTTON_STATES = {
   default: 'default',
   pending: 'pending',
@@ -20,17 +23,17 @@ export const BADGE_STATES = {
 };
 
 export const NOTIFICATION_MESSAGES = {
-  adding: 'Adding',
-  saving: 'Saving',
-  duplicating: 'Duplicating',
-  deleting: 'Deleting',
-  copying: 'Copying',
-  pasting: 'Pasting',
-  discardChanges: 'Discarding changes',
-  publishing: 'Publishing',
-  hidingFromStudents: 'Hiding from students',
-  makingVisibleToStudents: 'Making visible to students',
-  empty: '',
+  adding: <FormattedMessage {...messages.CustomNotificationAdding} />,
+  saving: <FormattedMessage {...messages.CustomNotificationSaving} />,
+  duplicating: <FormattedMessage {...messages.CustomNotificationDuplicating} />,
+  deleting: <FormattedMessage {...messages.CustomNotificationDeleting} />,
+  copying: <FormattedMessage {...messages.CustomNotificationCopying} />,
+  pasting: <FormattedMessage {...messages.CustomNotificationPasting} />,
+  discardChanges: <FormattedMessage {...messages.CustomNotificationDiscardingChanges} />,
+  publishing: <FormattedMessage {...messages.CustomNotificationPublishing} />,
+  hidingFromStudents: <FormattedMessage {...messages.CustomNotificationHidingFromStudents} />,
+  makingVisibleToStudents: <FormattedMessage {...messages.CustomNotificationMakingVisibleToStudents} />,
+  empty: <FormattedMessage {...messages.CustomNotificationEmpty} />,
 };
 
 export const DEFAULT_TIME_STAMP = '00:00';
