@@ -26,7 +26,7 @@ export const ProblemTypeKeys = StrictDict({
 export type ProblemType = typeof ProblemTypeKeys[keyof typeof ProblemTypeKeys];
 
 export interface ProblemConfig {
-  title: string;
+  title: React.ReactNode;
   preview: string | React.ReactNode;
   previewDescription?: string;
   description?: string;
@@ -36,7 +36,7 @@ export interface ProblemConfig {
   template?: string;
 }
 
-export const ProblemTypes = StrictDict<Record<ProblemType, ProblemConfig>>({
+export const ProblemTypes = StrictDict({
   [ProblemTypeKeys.SINGLESELECT]: {
     title: <FormattedMessage {...messages.customSingleSelectTitle} />,
     preview: singleSelect,
@@ -109,14 +109,14 @@ export const AdvanceProblemKeys = StrictDict({
 export type AdvancedProblemType = typeof AdvanceProblemKeys[keyof typeof AdvanceProblemKeys];
 
 export interface AdvancedProblemConfig {
-  title: string;
+  title: React.ReactNode; // Updated to React.ReactNode to match usage
   status?: string;
   template?: string;
 }
 
-export const AdvanceProblems = StrictDict<Record<AdvancedProblemType, AdvancedProblemConfig>>({
+export const AdvanceProblems = StrictDict({
   [AdvanceProblemKeys.BLANK]: {
-    title:  <FormattedMessage {...messages.customAdvancedBlankTitle} />,
+    title: <FormattedMessage {...messages.customAdvancedBlankTitle} />,
     status: '',
     template: '<problem></problem>',
   },
@@ -126,7 +126,7 @@ export const AdvanceProblems = StrictDict<Record<AdvancedProblemType, AdvancedPr
     template: advancedOlxTemplates.circuitSchematic,
   },
   [AdvanceProblemKeys.JSINPUT]: {
-    title:  <FormattedMessage {...messages.customAdvancedJsInputTitle} />,
+    title: <FormattedMessage {...messages.customAdvancedJsInputTitle} />,
     status: '',
     template: advancedOlxTemplates.jsInputResponse,
   },
@@ -152,7 +152,6 @@ export const AdvanceProblems = StrictDict<Record<AdvancedProblemType, AdvancedPr
   },
 });
 
-// Type guard function
 export function isAdvancedProblemType(pt: ProblemType | AdvancedProblemType): pt is AdvancedProblemType {
   return Object.values(AdvanceProblemKeys).includes(pt as any);
 }
@@ -178,7 +177,7 @@ export interface ShowAnswerConfig {
   defaultMessage: string;
 }
 
-export const ShowAnswerTypes = StrictDict<Record<string, ShowAnswerConfig>>({
+export const ShowAnswerTypes = StrictDict({
   [ShowAnswerTypesKeys.ALWAYS]: {
     id: 'authoring.problemeditor.settings.showanswertype.always',
     defaultMessage: 'Always',
@@ -242,7 +241,7 @@ export interface RandomizationConfig {
   defaultMessage: string;
 }
 
-export const RandomizationTypes = StrictDict<Record<string, RandomizationConfig>>({
+export const RandomizationTypes = StrictDict({
   [RandomizationTypesKeys.ALWAYS]: {
     id: 'authoring.problemeditor.settings.RandomizationTypes.always',
     defaultMessage: 'Always',
