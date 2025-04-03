@@ -1,19 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Hyperlink, Image, Container } from '@openedx/paragon';
-import {
-  FormattedMessage,
-  injectIntl,
-  intlShape,
-} from '@edx/frontend-platform/i18n';
+import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/i18n'; // Ensure this import is present
 import messages from './messages';
 import { ProblemTypes } from '../../../../../data/constants/problem';
 
-const Preview = ({
-  problemType,
-  // injected
-  intl,
-}) => {
+const Preview = ({ problemType, intl }) => {
   if (problemType === null) {
     return null;
   }
@@ -21,7 +13,7 @@ const Preview = ({
   return (
     <Container style={{ width: '494px', height: '400px' }} className="bg-light-300 rounded p-4">
       <div className="small">
-        {intl.formatMessage(messages.previewTitle, { previewTitle: data.title })}
+        {data.title} {/* Render the React node directly */}
       </div>
       <Image
         fluid
@@ -30,13 +22,10 @@ const Preview = ({
         alt={intl.formatMessage(messages.previewAltText, { problemType })}
       />
       <div className="mb-3">
-        {intl.formatMessage(messages.previewDescription, { previewDescription: data.previewDescription })}
+        {data.previewDescription} {/* Render the React node directly */}
       </div>
-      <Hyperlink
-        destination={data.helpLink}
-        target="_blank"
-      >
-        <FormattedMessage {...messages.learnMoreButtonLabel} />
+      <Hyperlink destination={data.helpLink} target="_blank">
+        <FormattedMessage {...messages.learnMoreButtonLabel} /> {/* Uses FormattedMessage */}
       </Hyperlink>
     </Container>
   );
@@ -48,7 +37,6 @@ Preview.defaultProps = {
 
 Preview.propTypes = {
   problemType: PropTypes.string,
-  // injected
   intl: intlShape.isRequired,
 };
 

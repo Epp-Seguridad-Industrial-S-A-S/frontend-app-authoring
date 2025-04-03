@@ -82,12 +82,12 @@ export const ProblemTypes = StrictDict({
     next: ProblemTypeKeys.SINGLESELECT,
     template: basicOlxTemplates.textInput,
   },
-  [ProblemTypeKeys.ADVANCED]: {
-    title: 'Advanced Problem',
-    preview: '<div />',
-    description: 'An Advanced Problem Type',
-    helpLink: 'something.com',
-  },
+  // [ProblemTypeKeys.ADVANCED]: {
+  //   title: 'Advanced Problem',
+  //   preview: '<div />',
+  //   description: 'An Advanced Problem Type',
+  //   helpLink: 'something.com',
+  // },
 });
 
 export const AdvanceProblemKeys = StrictDict({
