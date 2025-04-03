@@ -1,19 +1,14 @@
 import { StrictDict } from '../../utils';
-
-// Image imports (these remain the same)
 import singleSelect from '../images/singleSelect.png';
 import multiSelect from '../images/multiSelect.png';
 import dropdown from '../images/dropdown.png';
 import numericalInput from '../images/numericalInput.png';
 import textInput from '../images/textInput.png';
-
-// Template imports
 import advancedOlxTemplates from './advancedOlxTemplates';
 import basicOlxTemplates from './basicOlxTemplates';
-import { messages } from './messages'; // Import messages for i18n
-import { FormattedMessage } from '@edx/frontend-platform/i18n'; // Ensure this is imported
+import { messages } from './messages';
+import { FormattedMessage } from '@edx/frontend-platform/i18n';
 
-// Problem Type Definitions
 export const ProblemTypeKeys = StrictDict({
   SINGLESELECT: 'multiplechoiceresponse',
   MULTISELECT: 'choiceresponse',
@@ -28,8 +23,8 @@ export type ProblemType = typeof ProblemTypeKeys[keyof typeof ProblemTypeKeys];
 export interface ProblemConfig {
   title: React.ReactNode;
   preview: string | React.ReactNode;
-  previewDescription?: string;
-  description?: string;
+  previewDescription?: React.ReactNode;
+  description?: React.ReactNode;
   helpLink?: string;
   prev?: ProblemType;
   next?: ProblemType;
@@ -40,8 +35,8 @@ export const ProblemTypes = StrictDict({
   [ProblemTypeKeys.SINGLESELECT]: {
     title: <FormattedMessage {...messages.customSingleSelectTitle} />,
     preview: singleSelect,
-    previewDescription: 'Learners must select the correct answer from a list of possible options.',
-    description: 'Enter your single select answers below and select which choices are correct. Learners must choose one correct answer.',
+    previewDescription: <FormattedMessage {...messages.customSingleSelectPreviewDescription} />,
+    description: <FormattedMessage {...messages.customSingleSelectDescription} />,
     helpLink: 'https://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/exercises_tools/multiple_choice.html',
     prev: ProblemTypeKeys.TEXTINPUT,
     next: ProblemTypeKeys.MULTISELECT,
@@ -50,8 +45,8 @@ export const ProblemTypes = StrictDict({
   [ProblemTypeKeys.MULTISELECT]: {
     title: <FormattedMessage {...messages.customMultiSelectTitle} />,
     preview: multiSelect,
-    previewDescription: 'Learners must select all correct answers from a list of possible options.',
-    description: 'Enter your multi select answers below and select which choices are correct. Learners must choose all correct answers.',
+    previewDescription: <FormattedMessage {...messages.customMultiSelectPreviewDescription} />,
+    description: <FormattedMessage {...messages.customMultiSelectDescription} />,
     helpLink: 'https://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/exercises_tools/checkbox.html',
     next: ProblemTypeKeys.DROPDOWN,
     prev: ProblemTypeKeys.SINGLESELECT,
@@ -60,8 +55,8 @@ export const ProblemTypes = StrictDict({
   [ProblemTypeKeys.DROPDOWN]: {
     title: <FormattedMessage {...messages.customDropdownTitle} />,
     preview: dropdown,
-    previewDescription: 'Learners must select the correct answer from a list of possible options',
-    description: 'Enter your dropdown answers below and select which choice is correct. Learners must select one correct answer.',
+    previewDescription: <FormattedMessage {...messages.customDropdownPreviewDescription} />,
+    description: <FormattedMessage {...messages.customDropdownDescription} />,
     helpLink: 'https://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/exercises_tools/dropdown.html',
     next: ProblemTypeKeys.NUMERIC,
     prev: ProblemTypeKeys.MULTISELECT,
@@ -70,8 +65,8 @@ export const ProblemTypes = StrictDict({
   [ProblemTypeKeys.NUMERIC]: {
     title: <FormattedMessage {...messages.customNumericTitle} />,
     preview: numericalInput,
-    previewDescription: 'Specify one or more correct numeric answers, submitted in a response field.',
-    description: 'Enter correct numerical input answers below. Learners must enter one correct answer.',
+    previewDescription: <FormattedMessage {...messages.customNumericPreviewDescription} />,
+    description: <FormattedMessage {...messages.customNumericDescription} />,
     helpLink: 'https://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/exercises_tools/numerical_input.html',
     next: ProblemTypeKeys.TEXTINPUT,
     prev: ProblemTypeKeys.DROPDOWN,
@@ -80,8 +75,8 @@ export const ProblemTypes = StrictDict({
   [ProblemTypeKeys.TEXTINPUT]: {
     title: <FormattedMessage {...messages.customTextInputTitle} />,
     preview: textInput,
-    previewDescription: 'Specify one or more correct text answers, including numbers and special characters, submitted in a response field.',
-    description: 'Enter your text input answers below and select which choices are correct. Learners must enter one correct answer.',
+    previewDescription: <FormattedMessage {...messages.customTextInputPreviewDescription} />,
+    description: <FormattedMessage {...messages.customTextInputDescription} />,
     helpLink: 'https://edx.readthedocs.io/projects/edx-partner-course-staff/en/latest/exercises_tools/text_input.html',
     prev: ProblemTypeKeys.NUMERIC,
     next: ProblemTypeKeys.SINGLESELECT,
@@ -95,7 +90,6 @@ export const ProblemTypes = StrictDict({
   },
 });
 
-// Advanced Problem Definitions
 export const AdvanceProblemKeys = StrictDict({
   BLANK: 'blankadvanced',
   CIRCUITSCHEMATIC: 'circuitschematic',
@@ -109,7 +103,7 @@ export const AdvanceProblemKeys = StrictDict({
 export type AdvancedProblemType = typeof AdvanceProblemKeys[keyof typeof AdvanceProblemKeys];
 
 export interface AdvancedProblemConfig {
-  title: React.ReactNode; // Updated to React.ReactNode to match usage
+  title: React.ReactNode;
   status?: string;
   template?: string;
 }
@@ -156,7 +150,6 @@ export function isAdvancedProblemType(pt: ProblemType | AdvancedProblemType): pt
   return Object.values(AdvanceProblemKeys).includes(pt as any);
 }
 
-// Show Answer Types
 export const ShowAnswerTypesKeys = StrictDict({
   ALWAYS: 'always',
   ANSWERED: 'answered',
@@ -228,7 +221,6 @@ export const ShowAnswerTypes = StrictDict({
   },
 });
 
-// Randomization Types
 export const RandomizationTypesKeys = StrictDict({
   NEVER: 'never',
   ALWAYS: 'always',
@@ -260,7 +252,6 @@ export const RandomizationTypes = StrictDict({
   },
 });
 
-// Additional Constants
 export const RichTextProblems = [ProblemTypeKeys.SINGLESELECT, ProblemTypeKeys.MULTISELECT] as const;
 
 export const settingsOlxAttributes = [
