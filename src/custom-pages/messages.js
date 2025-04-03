@@ -106,11 +106,11 @@ const messages = defineMessages({
     defaultMessage: 'Cancel',
   },
   CustomButtonLabel1: {
-    id: 'course-authoring.custom-pages..body.CustomButtonLabel1',
+    id: 'course-authoring.custom-pages.body.CustomButtonLabel1',
     defaultMessage: 'Content',
   },
   CustomButtonLabel2: {
-    id: 'course-authoring.custom-pages..body.CustomButtonLabel2',
+    id: 'course-authoring.custom-pages.body.CustomButtonLabel2',
     defaultMessage: 'Pages and Resources',
   },
 });
