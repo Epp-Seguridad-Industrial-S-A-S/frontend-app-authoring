@@ -33,7 +33,7 @@ export const NOTIFICATION_MESSAGES = {
   publishing: <FormattedMessage {...messages.CustomNotificationPublishing} />,
   hidingFromStudents: <FormattedMessage {...messages.CustomNotificationHidingFromStudents} />,
   makingVisibleToStudents: <FormattedMessage {...messages.CustomNotificationMakingVisibleToStudents} />,
-  empty: <FormattedMessage {...messages.CustomNotificationEmpty} />,
+  empty: '',
 };
 
 export const DEFAULT_TIME_STAMP = '00:00';

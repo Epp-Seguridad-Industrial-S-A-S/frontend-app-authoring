@@ -61,11 +61,6 @@ const messages = defineMessages({
     defaultMessage: 'Making visible to students',
     description: 'Message displayed when something is being made visible to students',
   },
-  CustomNotificationEmpty: {
-    id: 'course-authoring.notifications.custom10',
-    defaultMessage: '',
-    description: 'Empty message, possibly used for placeholder text',
-  },
 });
 
 export default messages;
