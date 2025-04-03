@@ -2,13 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { getInputType } from './utils';
-// import { requiredWhenNot } from '../utils/propTypes';
 
-const INPUT_TYPES = [
-  'radio',
-  'checkbox',
-];
-
+const INPUT_TYPES = ['radio', 'checkbox'];
 const DEFAULT_COLUMNS_NUMBER = 2;
 
 const SelectableBoxSet = React.forwardRef(({
@@ -26,61 +21,56 @@ const SelectableBoxSet = React.forwardRef(({
 }, ref) => {
   const inputType = getInputType('SelectableBoxSet', type);
 
-  return React.createElement(
-    inputType,
-    {
-      name,
-      value,
-      defaultValue,
-      onChange,
-      ref,
-      className: classNames(
+  // Debug log
+  console.log('SelectableBoxSet - value:', value, 'children:', children);
+
+  const handleChildClick = (e) => {
+    if (onChange) {
+      onChange(e); // Propagate the event to ProblemTypeSelect
+    }
+  };
+
+  return (
+    <div
+      ref={ref}
+      className={classNames(
         'pgn__selectable_box-set',
         `pgn__selectable_box-set--${columns || DEFAULT_COLUMNS_NUMBER}`,
         className,
-      ),
-      'aria-label': ariaLabel,
-      'aria-labelledby': ariaLabelledby,
-      ...props,
-    },
-    children,
+      )}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledby}
+      {...props}
+    >
+      {React.Children.map(children, (child) => {
+        if (!React.isValidElement(child)) {
+          console.warn('Invalid child in SelectableBoxSet:', child);
+          return child;
+        }
+        return React.cloneElement(child, {
+          type: inputType,
+          name,
+          value: child.props.value,
+          onClick: handleChildClick, // Use onClick instead of onChange
+          checked: value === child.props.value,
+          defaultChecked: defaultValue === child.props.value,
+        });
+      })}
+    </div>
   );
 });
 
 SelectableBoxSet.propTypes = {
-  /** Specifies a name for the group of `SelectableBox`'es. */
   name: PropTypes.string.isRequired,
-  /** Content of the `SelectableBoxSet`. */
   children: PropTypes.node,
-  /** A function that receives event of the clicked `SelectableBox` and can be used to handle the value change. */
   onChange: PropTypes.func,
-  /** Indicates selected `SelectableBox`'es. */
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
-  /** Specifies default values for the `SelectableBox`'es. */
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Indicates the input type: checkbox or radio. */
   type: PropTypes.oneOf(INPUT_TYPES),
-  /**
-   * Specifies number of `SelectableBox`'es in a row.
-   *
-   * Class that is responsible for the columns number: `pgn__selectable_box-set--{columns}`.
-   * Max number of columns: `12`.
-   */
   columns: PropTypes.number,
-  /** A class that is be appended to the base element. */
   className: PropTypes.string,
-  /**
-   * The ID of the label for the `SelectableBoxSet`.
-   *
-   * An accessible label must be provided to the `SelectableBoxSet`.
-   */
   ariaLabelledby: PropTypes.string,
-  /**
-   * A label for the `SelectableBoxSet`.
-   *
-   * If not using `ariaLabelledby`, then `ariaLabel` must be provided */
-  // eslint-disable-next-line react/forbid-prop-types
-  ariaLabel: PropTypes.any, // requiredWhenNot(PropTypes.string, 'ariaLabelledby'),
+  ariaLabel: PropTypes.any,
 };
 
 SelectableBoxSet.defaultProps = {
