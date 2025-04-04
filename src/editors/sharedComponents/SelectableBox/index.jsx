@@ -2,32 +2,60 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import SelectableBoxSet from './SelectableBoxSet';
-import { getInputType } from './utils'; // Corrected from './ OUTERutils'
+import { useCheckboxSetContext } from './FormCheckboxSetContext';
+import { useRadioSetContext } from './FormRadioSetContext';
+import { getInputType } from './utils';
 
-const INPUT_TYPES = ['radio', 'checkbox'];
+const INPUT_TYPES = [
+  'radio',
+  'checkbox',
+];
 
-const SelectableBox = React.forwardRef(({
+// The 'type: any' below is to avoid some errors while this file lacks proper
+// types. But we can probably soon just delete this file and use the upstream
+// Paragon.
+const SelectableBox = /** @type {any} */ (React.forwardRef(({
   type,
   value,
   checked,
   children,
+  isIndeterminate,
+  isInvalid,
   onClick,
   onFocus,
   inputHidden,
-  isIndeterminate,
-  isInvalid,
   className,
-  name,
   ...props
 }, ref) => {
   const inputType = getInputType('SelectableBox', type);
-  const inputRef = useRef(null);
+  const { value: radioValue } = useRadioSetContext();
+  const { value: checkboxValues = [] } = useCheckboxSetContext();
 
-  console.log('SelectableBox - value:', value, 'checked:', checked);
+  const isChecked = () => {
+    switch (type) {
+      case 'radio':
+        return radioValue === value;
+      case 'checkbox':
+        return checkboxValues.includes(value);
+      default:
+        return radioValue === value;
+    }
+  };
+
+  const inputRef = useRef(null);
+  const input = React.createElement(inputType, {
+    value,
+    checked,
+    hidden: inputHidden,
+    ref: inputRef,
+    tabIndex: -1,
+    onChange: () => {},
+    ...(type === 'checkbox' ? { ...props, isIndeterminate } : { ...props }),
+  }, null);
 
   useEffect(() => {
     if (onClick && inputRef.current) {
-      inputRef.current.onclick = (e) => onClick(e);
+      inputRef.current.onclick = () => onClick(inputRef.current);
     }
   }, [onClick]);
 
@@ -38,41 +66,40 @@ const SelectableBox = React.forwardRef(({
       onClick={() => inputRef.current.click()}
       onFocus={onFocus}
       className={classNames('pgn__selectable_box', className, {
-        'pgn__selectable_box-active': checked,
+        'pgn__selectable_box-active': isChecked() || checked,
         'pgn__selectable_box-invalid': isInvalid,
       })}
       tabIndex={0}
       ref={ref}
       {...props}
     >
-      <input
-        type={inputType}
-        name={name}
-        value={value}
-        checked={checked}
-        hidden={inputHidden}
-        ref={inputRef}
-        tabIndex={-1}
-        onChange={() => {}}
-        {...(type === 'checkbox' && { isIndeterminate })}
-      />
+      {input}
       {children}
     </div>
   );
-});
+}));
 
 SelectableBox.propTypes = {
+  /** Content of the `SelectableBox`. */
   children: PropTypes.node.isRequired,
+  /** A value that is passed to the input tag. */
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Controls whether `SelectableBox` is checked. */
   checked: PropTypes.bool,
+  /** Indicates the input type: checkbox or radio. */
   type: PropTypes.oneOf(INPUT_TYPES),
+  /** Function that is called when the `SelectableBox` is clicked. */
   onClick: PropTypes.func,
+  /** Function that is called when the `SelectableBox` is focused. */
   onFocus: PropTypes.func,
+  /** Controls display of the input (checkbox or radio button) on the `SelectableBox`. */
   inputHidden: PropTypes.bool,
+  /** Indicates a state for the 'checkbox' `type` when `SelectableBox` is neither checked nor unchecked. */
   isIndeterminate: PropTypes.bool,
+  /** Adds errors styles to the `SelectableBox`. */
   isInvalid: PropTypes.bool,
+  /** A class that is appended to the base element. */
   className: PropTypes.string,
-  name: PropTypes.string,
 };
 
 SelectableBox.defaultProps = {
@@ -85,7 +112,6 @@ SelectableBox.defaultProps = {
   isIndeterminate: false,
   isInvalid: false,
   className: undefined,
-  name: undefined,
 };
 
 SelectableBox.Set = SelectableBoxSet;
